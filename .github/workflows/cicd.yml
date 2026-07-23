@@ -1,110 +1,34 @@
-<<<<<<< HEAD
-name: CICD Pipeline
+name: CICD
 
 on:
   push:
-    branches:
-      - main
 
 
 jobs:
-  Testing:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Clone repository
+        uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '22'
+      - name: Node setup
+        uses: actions/setup-node@v7
 
-      - name: Install Dependencies
+      - name: Install project dependencies
         run: npm install
 
-      - name: Run Tests
+      - name: Run tests
         run: npm run check
 
-
-  Deploy:
+  deploy:
     runs-on: self-hosted
-    needs: Testing
+    needs: test
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Clone repository
+        uses: actions/checkout@v7
 
-      - name: Install Dependencies
+      - name: Install project dependencies
         run: npm install
 
-
-      - name: ahsdfj
-        run: |
-          
-      - name: Deploy to Server
-        run: |
-          pm2 delete "Server" || true
-          pm2 start "npm start" --name="Server"
-
-
-
-
-
-=======
-name: CICD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
-
-jobs:
-  Testing:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '22'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Tests
-        run: npm run check
-
-  
-
-
-  Deploy:
-    runs-on: self-hosted
-    needs: Testing
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
- 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:  
-          node-version: 'latest'
- 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Install pm2 
-        run: npm install -g pm2
- 
-      - name: Deploy to Server
-        run: |
-          pm2 delete "Server" || true
-
-          pm2 start "npm run dev" --name="Server"
-
- 
-
-
-
->>>>>>> f3065f3d954f25339c608aaa33fa4a57bd23184f
+      - name: Deploy
+        run: pm2 start "npm start" --name="CICD 5000"
