@@ -24,11 +24,16 @@ jobs:
     runs-on: self-hosted
     needs: test
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
+      - name: File create
+        run: echo "Hello World" > file.txt
 
-      - name: Install project dependencies
-        run: npm install
+      - name: Output the file
+        run: cat file.txt
+      # - name: Clone repository
+      #   uses: actions/checkout@v2
 
-      - name: Deploy
-        run: pm2 start "npm start" --name="CICD 5000"
+      # - name: Install project dependencies
+      #   run: npm install
+
+      # - name: Deploy
+      #   run: pm2 start "npm start" --name="CICD 5000"
