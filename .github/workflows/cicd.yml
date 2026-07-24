@@ -18,7 +18,13 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm run check
+        run: npm run check > test_result.txt
+
+      - name: Upload artifacts
+        uses: gaogaotiantian/upload-coredumpy@v0.2
+        with:
+          name: test_result
+          
 
   deploy:
     runs-on: self-hosted
@@ -30,5 +36,13 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
+      - name: Download multiple artifacts
+        uses: marcofaggian/action-download-multiple-artifacts@v1
+        with: 
+          names: test_result
+
+      - name: Show artifacts
+        run: cat test_result
+
       - name: Deploy
-        run: pm2 start "npm restart" --name="CICD 5000"
+        run: pm2 restart "CICD 5000" || pm2 start "npm start" --name="CICD 5000"
