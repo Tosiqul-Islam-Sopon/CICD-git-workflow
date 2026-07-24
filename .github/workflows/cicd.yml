@@ -27,13 +27,8 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v7
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Install project dependencies
         run: npm install
 
       - name: Deploy
-        run: pm2 start "npm start" --name="CICD 5000"
+        run: pm2 start "npm restart" --name="CICD 5000"
