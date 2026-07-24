@@ -46,7 +46,7 @@ jobs:
           path: test_result_dir
 
       - name: Show artifacts
-        run: cat test_result_dir/test_result
+        run: cat test_result_dir/test_result.txt
 
       - name: Deploy
         run: pm2 restart "CICD 5000" || pm2 start "npm start" --name="CICD 5000"
