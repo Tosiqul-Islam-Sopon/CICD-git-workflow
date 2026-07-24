@@ -39,11 +39,11 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
-      - name: Download multiple artifacts
-        uses: marcofaggian/action-download-multiple-artifacts@v1
-        with: 
-          names: test_result
-          paths: test_results
+      - name: Download test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: test_result
+          path: test_results
 
       - name: Show artifacts
         run: cat test_results/test_result.txt
