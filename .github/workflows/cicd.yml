@@ -26,7 +26,7 @@ jobs:
         uses: gaogaotiantian/upload-coredumpy@v0.2
         with:
           name: test_result
-          path: test_results
+          path: test_result.txt
           
 
   deploy:
@@ -43,10 +43,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test_result
-          path: test_results
+          path: test_result_dir
 
       - name: Show artifacts
-        run: cat test_results/test_result
+        run: cat test_result_dir/test_result
 
       - name: Deploy
         run: pm2 restart "CICD 5000" || pm2 start "npm start" --name="CICD 5000"
